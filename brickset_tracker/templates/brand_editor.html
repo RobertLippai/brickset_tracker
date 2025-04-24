@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Brand Editor Page{% endblock %}
+
+{% block content %}
+
+<h1>{{ 'Edit brand' if brand_data else 'Add new brand' }}</h1>
+
+<form id="brandForm">
+  <input type="text" name="name" placeholder="Brand name" value="{{ brand_data.name if brand_data else '' }}" required><br>
+  <input type="text" name="description" placeholder="Brand description" value="{{ brand_data.description if brand_data else '' }}" required><br>
+  <input type="submit" value="{{ 'Update brand' if brand_data else 'Add brand!' }}">
+</form>
+
+<script>
+    const form = document.getElementById('brandForm');
+    const isEdit = {{ 'true' if brand_data else 'false' }};
+    const brandId = {{ brand_data.bid if brand_data else 'null' }};
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Stop the form from actually submitting
+  
+      const formData = new FormData(form);
+      const jsonData = {};
+  
+      for (const [key, value] of formData.entries()) {
+        if (value !== '') {
+          jsonData[key] = value;
+        }
+      }
+  
+      const url = isEdit ? `/api/brands/${brandId}` : '/api/brands';
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      });
+  
+      if (response.ok) {
+        alert(isEdit ? 'Brand updated! ✨' : 'Brand added! 💃');
+      } else {
+        const errText = await response.text();
+        console.error("Response error:", errText);
+        alert('Oopsie, something went wrong 😩\n' + errText);
+        }
+    });
+  </script>
+
+<br>
+<a href="{{ url_for('editor_home') }}">Editor Home</a>
+
+{% endblock %}

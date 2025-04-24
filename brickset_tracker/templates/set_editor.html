@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Set Editor Page{% endblock %}
+
+{% block content %}
+
+<h1>{{ 'Edit set' if set_data else 'Add new set' }}</h1>
+
+<form id="setForm">
+  <input type="text" name="set_id" placeholder="Set ID" value="{{ set_data.set_id if set_data else '' }}" required><br>
+  <input type="text" name="name" placeholder="Set Name" value="{{ set_data.name if set_data else '' }}" required><br>
+  <input type="text" name="brand" placeholder="Set Brand" value="{{ set_data.brand.name if set_data else '' }}" required><br>
+  <input type="number" name="pieces" placeholder="Number of pieces" value="{{ set_data.pieces if set_data else '' }}"><br>
+  <input type="number" name="year" placeholder="Release Year" value="{{ set_data.year if set_data else '' }}"><br>
+  <input type="submit" value="{{ 'Update set' if set_data else 'Add set!' }}">
+</form>
+
+<script>
+    const form = document.getElementById('setForm');
+    const isEdit = {{ 'true' if set_data else 'false' }};
+    const setId = {{ set_data.sid if set_data else 'null' }};
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault(); // Stop the form from actually submitting
+  
+      const formData = new FormData(form);
+      const jsonData = {};
+  
+      for (const [key, value] of formData.entries()) {
+        if (value !== '') {
+          jsonData[key] = value;
+        }
+      }
+  
+      const url = isEdit ? `/api/sets/${setId}` : '/api/sets';
+      const method = isEdit ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      });
+  
+      if (response.ok) {
+        alert(isEdit ? 'Set updated! ✨' : 'Set added! 💃');
+      } else {
+        const errText = await response.text();
+        console.error("Response error:", errText);
+        alert('Oopsie, something went wrong 😩\n' + errText);
+        }
+    });
+  </script>
+
+<br>
+<a href="{{ url_for('editor_home') }}">Editor Home</a>
+
+{% endblock %}

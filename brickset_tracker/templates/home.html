@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4 pb-4"> 
+
+    <div class="py-5 mb-4 rounded-3 text-center text-white" style="background: linear-gradient(135deg, #ffcc00, #ff3d3d, #3399ff); color: white;">
+        <div class="container">
+            {% if current_user.is_authenticated %}
+                <h1 class="fw-bold">Welcome back, {{ current_user.username | capitalize }} 👋</h1>
+                <p class="lead">You're logged in as an <strong>{{ current_user.role }}</strong>!</p>
+
+                <div class="d-flex justify-content-center gap-4 mt-4 flex-wrap text-black">
+                    <div class="card shadow" style="width: 12rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">Owned Sets</h5>
+                        <p class="card-text">{{ total_sets }} sets</p>
+                      </div>
+                    </div>
+                    <div class="card shadow" style="width: 12rem;">
+                      <div class="card-body">
+                        <h5 class="card-title">Total Pieces</h5>
+                        <p class="card-text">{{ total_pieces }} pieces</p>
+                      </div>
+                    </div>
+                  </div>
+            {% else %}
+                <h1 class="display-4 fw-bold">Welcome to BrickSet Tracker</h1>
+                <p class="fs-5 mb-4">Keep track. Stay stacked. Discover your collection like never before.</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="{{ url_for('list_sets') }}" class="btn btn-light btn-lg mt-3 fw-bold">🔍 Browse Sets</a>
+                    <a href="{{ url_for('signup') }}" class="btn btn-light btn-lg mt-3 fw-bold">Get Started</a>
+                </div>
+            {% endif %}
+            
+        </div>
+      </div>
+
+      
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="fw-semibold">Featured Sets</h3>
+        <a href="{{ url_for('list_sets') }}" class="btn btn-primary mt-3">View All Sets</a>
+    </div>
+
+    {% with context="homepage", justify="center" %}
+        {% include "_set_cards.html" %}
+    {% endwith %}
+
+    {% if brands|length > 0 %}
+      <div class="d-flex justify-content-between align-items-center mb-3 mt-3">
+        <h3 class="fw-semibold">Brands</h3>
+      </div>
+      {% with context="home", justify="left" %}
+          {% include "_brand_cards.html" %}
+      {% endwith %}
+    {% endif %}
+
+</div>
+{% endblock %}

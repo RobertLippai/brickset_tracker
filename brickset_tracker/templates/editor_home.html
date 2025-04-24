@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Editor Home{% endblock %}
+
+{% block content %}
+
+<h1>Editor Home Page</h1>
+<p>Hi, {{ current_user.username }}!</p>
+
+<h3>Brands in the database</h3>
+
+{% if brands|length > 0 %}
+<ul>
+    {% for brand in brands %}
+    <li>
+        {{ brand.name }} - {{ brand.description }}
+        <button class="brand-edit-btn" data-bid="{{ brand.bid }}">Edit brand</button>
+        <button data-bid="{{ brand.bid }}">Remove brand from DB</button>
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Brands Table is empty!</p>
+{% endif %}
+
+<h3>Sets in the database</h3>
+
+{% if sets|length > 0 %}
+<ul>
+    {% for set in sets %}
+        <li>
+            {{ set.brand.name }} - {{ set.name }} ({{ set.set_id }})
+            <button class="edit-btn" data-sid="{{ set.sid }}">Edit set</button>
+            <button class="delete-set" data-sid="{{ set.sid }}">Remove from DB</button>
+
+        </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>Sets Table is empty!</p>
+{% endif %}
+
+<a href="{{ url_for('set_editor') }}">Add new set</a>
+<a href="{{ url_for('brand_editor') }}">Add new brand</a>
+<a href="{{ url_for('home') }}">Home</a>
+
+<script>
+        document.querySelectorAll('.brand-edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const bid = button.dataset.bid;
+            window.location.href = `/brand_editor/${bid}`;
+        });
+    });
+
+        document.querySelectorAll('.edit-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const sid = button.dataset.sid;
+            window.location.href = `/set_editor/${sid}`;
+        });
+    });
+
+
+    document.querySelectorAll('.delete-set').forEach(button => {
+        button.addEventListener('click', async (event) => {
+            const sid = button.dataset.sid;
+
+            if (confirm("Are you like *sure* you wanna delete this set? 😬")) {
+                try {
+                    const response = await fetch(`/api/sets/${sid}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    console.log(await response.text());
+
+                    if (response.ok) {
+                        // Optionally remove the element from the page
+                        // button.closest('li').remove();
+                        alert("Set deleted successfully 💥");
+                    } else {
+                        const err = await response.json();
+                        alert("Ugh, something went wrong: " + err.message);
+                    }
+                } catch (error) {
+                    console.error("Error deleting set:", error);
+                    alert("Yikes 😬 couldn't delete the set!");
+                }
+            }
+        });
+    });
+</script>
+
+{% endblock %}

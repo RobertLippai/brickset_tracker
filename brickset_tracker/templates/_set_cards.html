@@ -1,0 +1,47 @@
+<style>
+    img {
+        filter: grayscale(1);
+        opacity: 0.55;
+    }
+</style>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-{{ justify or 'start' }}">
+    {% for set in sets %}
+    <div class="col">
+        <div class="card h-100">
+            <img src="/static/assets/img/bricks_1.jpeg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ set.name }}</h5>
+              <p class="card-text">{{ set.brand.name }} #{{ set.set_id }}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-center gap-2">
+                {% if context == "inventory" %}
+                <button class="btn btn-outline-primary detail-btn" data-sid="{{ set.sid }}">View</button>
+                <form action="{{ url_for('remove_set_from_user') }}" method="post" style="display:inline;">
+                    <input type="hidden" name="set_id" value="{{ set.sid }}">
+                    <button type="submit" class="btn btn-outline-danger">Remove</button>
+                </form>
+              {% elif context == "homepage" or context == "sets" %}
+                <button class="btn btn-outline-primary detail-btn" data-sid="{{ set.sid }}">View</button>
+                {% if current_user %}
+                    <form action="{{ url_for('add_set_to_user') }}" method="post" style="display:inline;">
+                        <input type="hidden" name="set_id" value="{{ set.sid }}">
+                        <button class="btn btn-outline-primary detail-btn" type="submit">Add to My Collection</button>
+                    </form>        
+                {% endif %}
+              {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.querySelectorAll('.detail-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const sid = button.dataset.sid;
+        window.location.href = `api/sets/${sid}`;
+    });
+});
+
+</script>

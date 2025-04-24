@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Sets{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4 pb-4">
+  <h1 class="text-center mb-4">Explore Sets</h1>
+      {% with context="sets_button" %}
+        {% include "_brands_buttons.html" %}
+      {% endwith %}
+  {% if sets|length > 0 %}
+    {% with context="sets", justify="left" %}
+        {% include "_set_cards.html" %}
+    {% endwith %}
+  {% else %}
+    <p>The sets table is empty!</p>
+  {% endif %}
+
+
+</div>
+
+{% endblock %}

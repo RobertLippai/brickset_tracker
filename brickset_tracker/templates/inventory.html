@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Inventory{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4 pb-4">
+
+<h3 class="text-muted text-center mb-3">Owned Brands</h3>
+
+{% if brands|length > 0 %}
+    {% with context="inventory" %}
+    {% include "_brand_cards.html" %}
+    {% endwith %}
+{% else %}
+    <p>You don't have <strong>any</strong> sets from <strong>any</strong> brands! Go to the store!</p>
+{% endif %}
+
+<h3 class="text-muted text-center mb-3">Owned Sets</h3>
+
+{% if sets|length > 0 %}
+    {% with context="inventory" %}
+        {% include "_set_cards.html" %}
+    {% endwith %}
+{% else %}
+    <p>You don't have <strong>any</strong> sets! Go to the store!</p>
+{% endif %}
+
+
+</div>
+
+
+
+{% endblock %}
