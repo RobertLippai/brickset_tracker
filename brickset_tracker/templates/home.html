@@ -16,13 +16,13 @@
                     <div class="card shadow" style="width: 12rem;">
                       <div class="card-body">
                         <h5 class="card-title">Owned Sets</h5>
-                        <p class="card-text">{{ total_sets }} sets</p>
+                        <p class="card-text">{{ current_user.owned_sets | length }} sets</p>
                       </div>
                     </div>
                     <div class="card shadow" style="width: 12rem;">
                       <div class="card-body">
                         <h5 class="card-title">Total Pieces</h5>
-                        <p class="card-text">{{ total_pieces }} pieces</p>
+                        <p class="card-text">{{ total_pieces_owned() }} pieces</p>
                       </div>
                     </div>
                   </div>

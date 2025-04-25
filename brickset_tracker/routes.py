@@ -3,6 +3,7 @@ from models import User, SetModel, BrandModel
 from flask_login import login_required, current_user, login_user, logout_user
 from flask import render_template, request, redirect, url_for
 from sqlalchemy import func
+from collections import defaultdict
 import random
 
 """
@@ -10,17 +11,13 @@ Frontend routes
 """
 
 def count_sets(sets):
-    brand_counts = {}
+    brand_counts = defaultdict(int)
 
     for set_ in sets:
         if set_.brand:
-            brand_name = set_.brand.name
-            if brand_name in brand_counts:
-                brand_counts[brand_name] += 1
-            else:
-                brand_counts[brand_name] = 1
+            brand_counts[set_.brand.name] += 1
 
-    return brand_counts
+    return dict(brand_counts)
 
 def register_routes(app, db, bcrypt):
     @app.route('/', methods=['GET', 'POST'])
@@ -29,13 +26,8 @@ def register_routes(app, db, bcrypt):
         brands = BrandModel.query.all()
         random.shuffle(sets)
         featured_sets = sets[:3]
-        total_sets, total_pieces = (None, None)
 
-        if current_user.is_authenticated:
-            total_sets = len(current_user.owned_sets)
-            total_pieces = random.randint(1000, 10000)
-
-        return render_template('home.html', sets=featured_sets, brands=brands, total_sets=total_sets, total_pieces=total_pieces)
+        return render_template('home.html', sets=featured_sets, brands=brands)
 
     @app.route('/sets')
     def list_sets():
@@ -97,7 +89,7 @@ def register_routes(app, db, bcrypt):
 
 
 
-    @app.route('/login/', methods=['GET', 'POST'])
+    @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':
             return render_template('login.html')
@@ -108,14 +100,13 @@ def register_routes(app, db, bcrypt):
             user = User.query.filter(User.username == username).first()
             print(user.password)
 
-            #if user.password == password:
             if bcrypt.check_password_hash(user.password, password):
                 login_user(user)
                 return redirect(url_for('home'))
             else:
                 return 'Failed!'
 
-    @app.route('/signup/', methods=['GET', 'POST'])
+    @app.route('/signup', methods=['GET', 'POST'])
     def signup():
         if request.method == 'GET':
             return render_template('signup.html')
@@ -166,8 +157,10 @@ def register_routes(app, db, bcrypt):
     def utility_processor():
         def is_active(page_name):
             return 'active' if page_name == request.endpoint else ''
+        
         def is_current(page_name):
             return 'page' if page_name == request.endpoint else False
+        
         def is_selected_brand(current, selected):
             if not selected and current == "":  # for the "All brands" button
                 return "btn-primary"
@@ -175,4 +168,8 @@ def register_routes(app, db, bcrypt):
                 return "btn-primary"
             else:
                 return "btn-outline-primary"
-        return dict(is_active=is_active, is_current=is_current, is_selected_brand=is_selected_brand)
+            
+        def total_pieces_owned():
+            return sum(set.pieces for set in current_user.owned_sets if set.pieces)
+        
+        return dict(is_active=is_active, is_current=is_current, is_selected_brand=is_selected_brand, total_pieces_owned=total_pieces_owned)

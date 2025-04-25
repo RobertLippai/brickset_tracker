@@ -44,11 +44,11 @@
       });
   
       if (response.ok) {
-        alert(isEdit ? 'Set updated! ✨' : 'Set added! 💃');
+        alert(isEdit ? 'Set updated!' : 'Set added!');
       } else {
         const errText = await response.text();
         console.error("Response error:", errText);
-        alert('Oopsie, something went wrong 😩\n' + errText);
+        alert('Something went wrong\n' + errText);
         }
     });
   </script>

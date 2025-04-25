@@ -59,13 +59,14 @@ If no SQLALCHEMY_DATABASE_URI is provided, the app will automatically use a loca
 
 ## To Do
 - Add HTML page for viewing set details
+- Add proper input validation and visible error messages for forms
 - Display images of the given brick set
 - Replace Flask-Login with JWT
-- Create a seperate frontend
+- Create a standalone frontend
 
 > 🎯 **Goal:** Transform the app into a proper REST API backend by using JWT and moving all frontend logic to a separate app.
 
 
 ## Credits
-- bricks_1.jpeg: [Link](https://unsplash.com/photos/blue-red-and-yellow-lego-blocks-OSvN1fBcXYE)
-- bricks_2.jpeg: [Link](https://unsplash.com/photos/yellow-red-blue-and-green-lego-blocks-kn-UmDZQDjM)
+- Mourizal Zativa -- bricks_1.jpeg: [Link](https://unsplash.com/photos/blue-red-and-yellow-lego-blocks-OSvN1fBcXYE)
+- Xavi Cabrera -- bricks_2.jpeg: [Link](https://unsplash.com/photos/yellow-red-blue-and-green-lego-blocks-kn-UmDZQDjM)
