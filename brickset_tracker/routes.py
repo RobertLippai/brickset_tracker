@@ -23,7 +23,20 @@ def count_sets(sets):
     return brand_counts
 
 def register_routes(app, db, bcrypt):
-    
+    @app.route('/', methods=['GET', 'POST'])
+    def home():
+        sets = SetModel.query.all()
+        brands = BrandModel.query.all()
+        random.shuffle(sets)
+        featured_sets = sets[:3]
+        total_sets, total_pieces = (None, None)
+
+        if current_user.is_authenticated:
+            total_sets = len(current_user.owned_sets)
+            total_pieces = random.randint(1000, 10000)
+
+        return render_template('home.html', sets=featured_sets, brands=brands, total_sets=total_sets, total_pieces=total_pieces)
+
     @app.route('/sets')
     def list_sets():
         sets = SetModel.query.all()
@@ -38,21 +51,6 @@ def register_routes(app, db, bcrypt):
             sets = SetModel.query.all()
             
         return render_template('sets.html', sets=sets, brands=brands, brand_filter=brand_filter)
-
-    @app.route('/', methods=['GET', 'POST'])
-    def home():
-        sets = SetModel.query.all()
-        brands = BrandModel.query.all()
-        random.shuffle(sets)
-        featured_sets = sets[:3] # 1, 4, 15
-        featured_sets = SetModel.query.filter(SetModel.sid.in_([1, 4, 15])).all()
-        total_sets, total_pieces = (None, None)
-
-        if current_user.is_authenticated:
-            total_sets = len(current_user.owned_sets)
-            total_pieces = random.randint(1000, 10000)
-
-        return render_template('home.html', sets=featured_sets, brands=brands, total_sets=total_sets, total_pieces=total_pieces)
 
     @app.route('/inventory', methods=['GET', 'POST'])
     @login_required
