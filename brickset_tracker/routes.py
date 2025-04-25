@@ -151,7 +151,7 @@ def register_routes(app, db, bcrypt):
             db.session.commit()
 
         return redirect(request.referrer or url_for('home'))
-    
+
 
     @app.context_processor
     def utility_processor():
@@ -172,4 +172,13 @@ def register_routes(app, db, bcrypt):
         def total_pieces_owned():
             return sum(set.pieces for set in current_user.owned_sets if set.pieces)
         
-        return dict(is_active=is_active, is_current=is_current, is_selected_brand=is_selected_brand, total_pieces_owned=total_pieces_owned)
+        def get_set_thumbnail_url(image_url, size='400x400p'):
+            # rebrickable thumbnail url
+            if image_url and 'rebrickable.com/media/sets/' in image_url:
+                set_id = image_url.split('/')[-1].split('.')[0]
+                return f"https://cdn.rebrickable.com/media/thumbs/sets/{set_id}.jpg/{size}.jpg"
+            
+            return image_url
+   
+
+        return dict(is_active=is_active, is_current=is_current, is_selected_brand=is_selected_brand, total_pieces_owned=total_pieces_owned, get_set_thumbnail_url=get_set_thumbnail_url)

@@ -1,7 +1,7 @@
 <style>
-    img {
-        filter: grayscale(1);
-        opacity: 0.55;
+    .set-image {
+        height: 200px;
+        object-fit: contain;
     }
 </style>
 
@@ -9,7 +9,11 @@
     {% for set in sets %}
     <div class="col">
         <div class="card h-100">
-            <img src="/static/assets/img/bricks_1.jpeg" class="card-img-top" alt="...">
+            {% if set.image_url %}
+                <img loading="lazy" src="{{ get_set_thumbnail_url(set.image_url) }}" class="card-img-top set-image"  alt="{{ set.name }}">
+            {% else %}
+                <img loading="lazy" class="grayscale-image" src="/static/assets/img/bricks_1.jpeg" class="card-img-top" alt="...">
+            {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ set.name }}</h5>
               <p class="card-text">{{ set.brand.name }} #{{ set.set_id }}</p>

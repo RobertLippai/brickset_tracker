@@ -12,7 +12,9 @@ Here are a some preview shots of the web app.
 
 ### Home / Set list View
 <div align="center">
+<img src="screenshots/home_view_guest.png" center width="75%">
 <img src="screenshots/home_view.png" center width="75%">
+<p>Once logged in, users see some statistics showing the total number of sets they own and the overall piece count.</p>
 <img src="screenshots/set_list.png" width="75%">
 </div>
 
@@ -20,6 +22,14 @@ Here are a some preview shots of the web app.
 <div align="center">
 <img src="screenshots/owned_sets.png" width="75%">
 </div>
+
+# Sample Database
+The sample.db has been pre-loaded with data, so you don't need to set up your own database.
+It has some brick brands and sets added and a user with an editor role. 
+The example sets are sourced from [Rebrickable's Free LEGO Catalog Database](https://rebrickable.com/downloads/).
+
+- Username: test
+- Password: 1234
 
 ## Tech
 - Python + Flask + SQLAlchemy
@@ -60,7 +70,6 @@ If no SQLALCHEMY_DATABASE_URI is provided, the app will automatically use a loca
 ## To Do
 - Add HTML page for viewing set details
 - Add proper input validation and visible error messages for forms
-- Display images of the given brick set
 - Replace Flask-Login with JWT
 - Create a standalone frontend
 
@@ -70,3 +79,5 @@ If no SQLALCHEMY_DATABASE_URI is provided, the app will automatically use a loca
 ## Credits
 - Mourizal Zativa -- bricks_1.jpeg: [Link](https://unsplash.com/photos/blue-red-and-yellow-lego-blocks-OSvN1fBcXYE)
 - Xavi Cabrera -- bricks_2.jpeg: [Link](https://unsplash.com/photos/yellow-red-blue-and-green-lego-blocks-kn-UmDZQDjM)
+
+    Note: The LEGO sets, as well as those from other brands like Lumibricks (Previously Funwhole) and Pantasy, shown in the screenshots are used for illustrative purposes only. They are not part of the app's functionality. This project is intended to showcase my work, and no copyright infringement is intended.

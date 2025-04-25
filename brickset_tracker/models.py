@@ -25,11 +25,11 @@ class User(db.Model, UserMixin):
 class SetModel(db.Model):
     __tablename__ = 'sets'
     sid = db.Column(db.Integer, primary_key=True)
-    set_id = db.Column(db.String(100), nullable=False)  # should be unique
+    set_id = db.Column(db.String(100), nullable=False)  # unique
     name = db.Column(db.String(100), nullable=False)
     pieces = db.Column(db.Integer)
     year = db.Column(db.Integer)
-    image_url = db.Column(db.String(200))
+    image_url = db.Column(db.String(200)) # /static/images/set_image.jpg
 
     # 1 to many
     brand_id = db.Column(db.Integer, db.ForeignKey('brands.bid'), nullable=False)

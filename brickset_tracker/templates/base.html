@@ -14,6 +14,13 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+
+    <style>
+        .grayscale-image {
+            filter: grayscale(1);
+            opacity: 0.55;
+        }
+    </style>
 </head>
 <body>
     {% set current = request.endpoint %}
