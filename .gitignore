@@ -328,3 +328,5 @@ pip-selfcheck.json
 # Extra
 *.pyc
 *.sqlite3
+
+brickset_tracker/static/images/sets/

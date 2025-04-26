@@ -44,6 +44,12 @@ def register_routes(app, db, bcrypt):
             
         return render_template('sets.html', sets=sets, brands=brands, brand_filter=brand_filter)
 
+    @app.route('/sets/details/<int:sid>')
+    def set_detail(sid):
+        brick_set = SetModel.query.filter(SetModel.sid == sid).first()
+        
+        return render_template('set_detail.html', brick_set=brick_set)
+    
     @app.route('/inventory', methods=['GET', 'POST'])
     @login_required
     def inventory():
@@ -67,8 +73,8 @@ def register_routes(app, db, bcrypt):
         return render_template('editor_home.html', sets=sets, brands=brands)
     
 
-    @app.route('/set_editor', methods=['GET'])
-    @app.route('/set_editor/<string:set_id>', methods=['GET'])
+    @app.route('/set_editor')
+    @app.route('/set_editor/<string:set_id>')
     @editor_required
     def set_editor(set_id=None):
         set_data = None
@@ -77,8 +83,8 @@ def register_routes(app, db, bcrypt):
             print(set_data)
         return render_template("set_editor.html", set_data=set_data)
 
-    @app.route('/brand_editor', methods=['GET'])
-    @app.route('/brand_editor/<string:bid>', methods=['GET'])
+    @app.route('/brand_editor')
+    @app.route('/brand_editor/<string:bid>')
     @editor_required
     def brand_editor(bid=None):
         brand_data = None

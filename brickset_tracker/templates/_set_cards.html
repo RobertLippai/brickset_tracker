@@ -12,7 +12,7 @@
             {% if set.image_url %}
                 <img loading="lazy" src="{{ get_set_thumbnail_url(set.image_url) }}" class="card-img-top set-image"  alt="{{ set.name }}">
             {% else %}
-                <img loading="lazy" class="grayscale-image" src="/static/assets/img/bricks_1.jpeg" class="card-img-top" alt="...">
+                <img loading="lazy" src="/static/assets/img/bricks_1.jpeg" class="grayscale-image card-img-top" alt="...">
             {% endif %}
             <div class="card-body">
               <h5 class="card-title">{{ set.name }}</h5>
@@ -44,7 +44,7 @@
     document.querySelectorAll('.detail-btn').forEach(button => {
     button.addEventListener('click', () => {
         const sid = button.dataset.sid;
-        window.location.href = `api/sets/${sid}`;
+        window.location.href = `/sets/details/${sid}`;
     });
 });
 

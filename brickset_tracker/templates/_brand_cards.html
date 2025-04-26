@@ -5,7 +5,7 @@
         <div class="flex-shrink-0" style="max-width: 200px; min-width: 200px;">
         <a href="?" class="text-decoration-none">
         <div class="card h-100 {% if not brand_filter %}border-primary{% endif %}">
-            <img class="grayscale-image" src="/static/assets/img/bricks_2.jpeg" class="card-img-top" alt="All brands">
+            <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="All brands">
             <div class="card-body text-center">
             <h5 class="card-title">All Brands</h5>
             <p class="card-text">Show everything</p>
@@ -21,7 +21,7 @@
             <a href="{{ url_for('inventory', brand=brand) }}" class="text-decoration-none">
 
             <div class="card h-100 {% if brand == brand_filter %}border-primary{% endif %}" data-filter="{{ brand }}">
-                <img class="grayscale-image" src="/static/assets/img/bricks_2.jpeg" class="card-img-top" alt="...">
+                <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">{{ brand }}</h5>
                 <p class="card-text">{{ count }} set(s)</p>
@@ -37,7 +37,7 @@
         <div class="flex-shrink-0" style="max-width: 200px; min-width: 200px;">
             <a href="{{ url_for('list_sets', brand=brand.name) }}" class="text-decoration-none">
             <div class="card h-100 {% if brand == brand_filter %}border-primary{% endif %}" data-filter="{{ brand }}">
-                <img class="grayscale-image" src="/static/assets/img/bricks_2.jpeg" class="card-img-top" alt="...">
+                <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="...">
                 <div class="card-body">
                 <h5 class="card-title">{{ brand.name }}</h5>
                 <p class="card-text">{{ brand.description or "No description!" }}</p>

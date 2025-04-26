@@ -12,15 +12,20 @@ Here are a some preview shots of the web app.
 
 ### Home / Set list View
 <div align="center">
-<img src="screenshots/home_view_guest.png" center width="75%">
+<img src="screenshots/home_guest_view.png" center width="75%">
 <img src="screenshots/home_view.png" center width="75%">
 <p>Once logged in, users see some statistics showing the total number of sets they own and the overall piece count.</p>
-<img src="screenshots/set_list.png" width="75%">
+<img src="screenshots/set_list_view.png" width="75%">
 </div>
 
 ### Owned Sets Page
 <div align="center">
-<img src="screenshots/owned_sets.png" width="75%">
+<img src="screenshots/owned_sets_view.png" width="75%">
+</div>
+
+### Sets Detail Page
+<div align="center">
+<img src="screenshots/set_detail_view.png" width="75%">
 </div>
 
 # Sample Database
@@ -68,8 +73,9 @@ If no SQLALCHEMY_DATABASE_URI is provided, the app will automatically use a loca
     ```
 
 ## To Do
-- Add HTML page for viewing set details
+- Implement additional features for set details
 - Add proper input validation and visible error messages for forms
+- Redesign editor page
 - Replace Flask-Login with JWT
 - Create a standalone frontend
 
