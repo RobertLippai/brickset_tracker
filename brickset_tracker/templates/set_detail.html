@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}Set Info{% endblock %}
+{% block title %} {{ brick_set.brand.name }} - {{ brick_set.name }} {% endblock %}
 
 {% block content %}
-
 <div class="container-fluid min-vh-100 d-flex align-items-center">
-    <div class="row w-100">
+    <div class="row">
         <!-- Left side -->
-        <div class="col-lg-6 p-0">
+        <div class="col-lg-6 p-lg-0 p-3">
             {% if brick_set.image_url %}
                 <img src="{{ brick_set.image_url }}" alt="LEGO Set Image" class="img-fluid">
             {% else %}
@@ -17,7 +16,7 @@
 
         <!-- Right side -->
         <div class="col-lg-6 d-flex flex-column justify-content-center p-3 p-lg-5 text-center text-lg-start">
-            <h1 class="mb-0 mb-lg-4">{{ brick_set.name }}</h1>
+            <h1 class="mb-1 mb-lg-4">{{ brick_set.name }}</h1>
             <p class="fs-5">
                 <strong>Brand:</strong> {{ brick_set.brand.name }}<br>
                 <strong>Set ID:</strong> {{ brick_set.set_id }}<br>
@@ -26,9 +25,20 @@
             </p>
         </div>
         <div class="mt-0 mt-lg-4 text-center">
-            <a href="javascript:history.back()" class="btn btn-primary btn-lg">Go Back</a>
+            <a id="go-back-button" href="{{ url_for('list_sets') }}" class="btn btn-primary btn-lg">Go Back</a>
         </div>
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const backButton = document.getElementById('go-back-button');
+        const referrer = document.referrer;
+        const currentHost = window.location.host;
+
+        if (referrer && referrer.includes(currentHost)) {
+            backButton.setAttribute('href', 'javascript:history.back()');
+        }
+    });
+</script>
 {% endblock %}
