@@ -325,6 +325,9 @@ pip-selfcheck.json
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,python,flask,virtualenv
 
+# Ignore migration versions folder
+migrations/versions/
+
 # Extra
 *.pyc
 *.sqlite3

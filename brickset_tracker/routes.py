@@ -46,9 +46,11 @@ def register_routes(app, db, bcrypt):
 
     @app.route('/sets/details/<int:sid>')
     def set_detail(sid):
+        og_route = request.args.get('endpoint', 'list_sets')  # Default to all sets view
+
         brick_set = SetModel.query.filter(SetModel.sid == sid).first()
         
-        return render_template('set_detail.html', brick_set=brick_set)
+        return render_template('set_detail.html', brick_set=brick_set, og_route=og_route)
     
     @app.route('/inventory', methods=['GET', 'POST'])
     @login_required

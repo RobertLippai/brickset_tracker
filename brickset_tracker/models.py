@@ -30,6 +30,7 @@ class SetModel(db.Model):
     pieces = db.Column(db.Integer)
     year = db.Column(db.Integer)
     image_url = db.Column(db.String(200)) # /static/images/set_image.jpg
+    description = db.Column(db.Text)
 
     # 1 to many
     brand_id = db.Column(db.Integer, db.ForeignKey('brands.bid'), nullable=False)

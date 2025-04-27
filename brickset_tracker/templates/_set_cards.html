@@ -41,10 +41,12 @@
 </div>
 
 <script>
+    const currentEndpoint = "{{ request.endpoint }}";  // Store it in a JS variable
+
     document.querySelectorAll('.detail-btn').forEach(button => {
     button.addEventListener('click', () => {
         const sid = button.dataset.sid;
-        window.location.href = `/sets/details/${sid}`;
+        window.location.href = `/sets/details/${sid}?endpoint=${currentEndpoint}`;
     });
 });
 

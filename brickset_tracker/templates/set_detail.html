@@ -23,22 +23,31 @@
                 <strong>Pieces:</strong> {{ brick_set.pieces }}<br>
                 <strong>Year:</strong> {{ brick_set.year }}<br>
             </p>
+            {% if brick_set.description %}
+            <p class="text-start">{{ brick_set.description }}</p>
+            {% endif %}
+
+            <div class="d-flex justify-content-center mt-4 gap-2 justify-content-md-start">
+            {% if brick_set is in current_user.owned_sets %}
+                <!-- Button to remove from inventory -->
+                <form action="{{ url_for('remove_set_from_user') }}" method="post" style="display:inline;">
+                    <input type="hidden" name="set_id" value="{{ brick_set.sid }}">
+                    <button type="submit" class="btn btn-danger">Remove from Inventory</button>
+                </form>
+
+            {% else %}
+                <!-- Button to add to inventory -->
+                <form action="{{ url_for('add_set_to_user') }}" method="post" style="display:inline;">
+                    <input type="hidden" name="set_id" value="{{ brick_set.sid }}">
+                    <button type="submit" class="btn btn-success">Add to Inventory</button>
+                </form>
+            {% endif %}
+            </div>
         </div>
         <div class="mt-0 mt-lg-4 text-center">
-            <a id="go-back-button" href="{{ url_for('list_sets') }}" class="btn btn-primary btn-lg">Go Back</a>
+            <a href="{{ url_for(og_route) }}" class="btn btn-primary btn-lg">Go Back</a>
         </div>
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const backButton = document.getElementById('go-back-button');
-        const referrer = document.referrer;
-        const currentHost = window.location.host;
-
-        if (referrer && referrer.includes(currentHost)) {
-            backButton.setAttribute('href', 'javascript:history.back()');
-        }
-    });
-</script>
 {% endblock %}
