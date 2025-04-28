@@ -20,14 +20,38 @@
             <p class="fs-5">
                 <strong>Brand:</strong> {{ brick_set.brand.name }}<br>
                 <strong>Set ID:</strong> {{ brick_set.set_id }}<br>
-                <strong>Pieces:</strong> {{ brick_set.pieces }}<br>
-                <strong>Year:</strong> {{ brick_set.year }}<br>
+
+                {% set infos = [
+                    ('Pieces', brick_set.pieces),
+                    ('Minifigures', brick_set.minifigures),
+                    ('Year', brick_set.year),
+                ] %}
+            
+                {% for label, value in infos %}
+                    {% if value %}
+                        <strong>{{ label }}:</strong> {{ value }}<br>
+                    {% endif %}
+                {% endfor %}
             </p>
             {% if brick_set.description %}
             <p class="text-start">{{ brick_set.description }}</p>
             {% endif %}
 
+            {% if brick_set.tags %}
+            <div class="mb-4">
+                <strong class="me-2">Tags:</strong>
+                <div class="d-inline-flex gap-2">
+                    {% for tag in brick_set.tags %}
+                        <button class="btn btn-outline-primary btn-sm" disabled>{{ tag.name }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
             <div class="d-flex justify-content-center mt-4 gap-2 justify-content-md-start">
+            {% if brick_set.instruction_url %}
+                <a href="{{ brick_set.instruction_url }}" target="_blank" class="btn btn-success">View Instruction Manual</a>
+            {% endif %}
             {% if brick_set is in current_user.owned_sets %}
                 <!-- Button to remove from inventory -->
                 <form action="{{ url_for('remove_set_from_user') }}" method="post" style="display:inline;">
