@@ -86,6 +86,8 @@ If no SQLALCHEMY_DATABASE_URI is provided, the app will automatically use a loca
 - Add proper input validation and visible error messages for forms
 - Redesign editor page
 - Create editor page for adding tags
+- Add favicon
+- Create 404 page
 - Replace Flask-Login with JWT
 - Create a standalone frontend
 
