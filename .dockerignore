@@ -1,0 +1,54 @@
+# Secrets and env files
+.env
+.envrc
+fly.toml
+
+# Virtual environments
+.venv/
+env/
+ENV/
+venv/
+env.bak/
+venv.bak/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Git
+.git/
+.gitignore
+
+# Editor / OS junk
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+.history/
+
+# Build, dist, packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+*.log
+
+# Bytecode
+*.pyc
+
+# Tests and coverage
+tests/
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+htmlcov/
+.mypy_cache/
+.hypothesis/
+.dmypy.json
+.pyre/
+.pytype/
+
+# Static data
+brickset_tracker/static/images/sets/
