@@ -12,7 +12,7 @@
 </style>
 
 <div class="container-fluid min-vh-100 d-flex align-items-center">
-    <div class="row w-100">
+    <div class="row">
         <div class="col-lg-6 p-lg-0 p-3 d-flex align-items-center justify-content-center">
             <div class="image-wrapper">
                 {% if brick_set.image_url %}
@@ -44,7 +44,7 @@
             </p>
 
             {% if brick_set.description %}
-            <p class="text-start">{{ brick_set.description }}</p>
+            <p style="text-align: justify;">{{ brick_set.description }}</p>
             {% endif %}
 
             {% if brick_set.tags %}

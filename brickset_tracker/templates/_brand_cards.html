@@ -1,60 +1,63 @@
 <div class="container-fluid">
-    <div class="justify-content-center d-flex overflow-auto py-3 w-100 gap-3 flex-nowrap">
-
+    <div class="justify-content-start justify-content-sm-center d-flex overflow-auto py-3 w-100 gap-3 flex-nowrap">
         {% if context != "home" %}
         <div class="flex-shrink-0" style="max-width: 200px; min-width: 200px;">
-        <a href="?" class="text-decoration-none">
-        <div class="card h-100 {% if not brand_filter %}border-primary{% endif %}">
-            <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="All brands">
-            <div class="card-body text-center">
-            <h5 class="card-title">All Brands</h5>
-            <p class="card-text">Show everything</p>
-            </div>
+            <a href="?" class="text-decoration-none">
+                <div class="card h-100 {% if not brand_filter %}border-primary{% endif %}">
+                    <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="All brands">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">All Brands</h5>
+                        <p class="card-text">Show everything</p>
+                    </div>
+                </div>
+            </a>
         </div>
-        </a>
-    </div>
-    {% endif %}
+        {% endif %}
 
-    {% if context == "inventory" %}
+        {% if context == "inventory" %}
         {% for brand, count in brands.items() %}
         <div class="flex-shrink-0" style="max-width: 200px; min-width: 200px;">
             <a href="{{ url_for('inventory', brand=brand) }}" class="text-decoration-none">
 
-            <div class="card h-100 {% if brand == brand_filter %}border-primary{% endif %}" data-filter="{{ brand }}">
-                <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">{{ brand }}</h5>
-                <p class="card-text">{{ count }} set(s)</p>
+                <div class="card h-100 {% if brand == brand_filter %}border-primary{% endif %}"
+                    data-filter="{{ brand }}">
+                    <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ brand }}</h5>
+                        <p class="card-text">{{ count }} set(s)</p>
+                    </div>
                 </div>
-            </div>
 
             </a>
 
         </div>
         {% endfor %}
-    {% elif context == "sets" or context == "home" %}
+        {% elif context == "sets" or context == "home" %}
         {% for brand in brands %}
         <div class="flex-shrink-0" style="max-width: 200px; min-width: 200px;">
             <a href="{{ url_for('list_sets', brand=brand.name) }}" class="text-decoration-none">
-            <div class="card h-100 {% if brand == brand_filter %}border-primary{% endif %}" data-filter="{{ brand }}">
-                <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">{{ brand.name }}</h5>
-                <p class="card-text">{{ brand.description or "No description!" }}</p>
+                <div class="card h-100 {% if brand == brand_filter %}border-primary{% endif %}"
+                    data-filter="{{ brand }}">
+                    <img src="/static/assets/img/bricks_2.jpeg" class="grayscale-image card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ brand.name }}</h5>
+                        <p class="card-text">{{ brand.description or "No description!" }}</p>
+                    </div>
                 </div>
-            </div>
             </a>
         </div>
         {% endfor %}
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
 
 <style>
-.card {
-    transition: transform 0.2s ease;
-  }
-.card:hover {
-    transform: scale(1.03);
-    z-index: 10;
-}
+    .card {
+        transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        z-index: 10;
+    }
 </style>
