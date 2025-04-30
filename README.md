@@ -73,9 +73,10 @@ If no SQLALCHEMY_DATABASE_URI is provided, the app will automatically use a loca
     ```
 
 ## To Do
-- Implement additional features for set details
+- Add searching by tags
 - Add proper input validation and visible error messages for forms
 - Redesign editor page
+- Create editor page for adding tags
 - Replace Flask-Login with JWT
 - Create a standalone frontend
 
