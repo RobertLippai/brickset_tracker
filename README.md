@@ -1,6 +1,15 @@
 # BrickSet Tracker
 
+[![Fly Deploy](https://github.com/RobertLippai/brickset_tracker/actions/workflows/fly.yml/badge.svg)](https://github.com/RobertLippai/brickset_tracker/actions/workflows/fly.yml)
+
 A simple Flask app where users can collect Brick sets, view details, and manage their own collection.
+
+## Try it
+You can try the website here: [https://brick-tracker.fly.dev](https://brick-tracker.fly.dev)
+
+There is an example account:
+- Username: test
+- Password: 1234
 
 ## Features
 - User registration & login (Flask-Login)

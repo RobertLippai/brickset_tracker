@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for brick-tracker-backend on 2025-04-30T14:45:08+02:00
+# fly.toml app configuration file generated for brick-tracker on 2025-04-30T17:39:06+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'brick-tracker-backend'
+app = 'brick-tracker'
 primary_region = 'fra'
 
 [build]
