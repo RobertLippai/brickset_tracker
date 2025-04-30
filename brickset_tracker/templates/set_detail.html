@@ -3,15 +3,25 @@
 {% block title %} {{ brick_set.brand.name }} - {{ brick_set.name }} {% endblock %}
 
 {% block content %}
+<style>
+    .image-wrapper img {
+        width: 100%;
+        height: 70vh;
+        object-fit: contain;
+    }
+</style>
+    
 <div class="container-fluid min-vh-100 d-flex align-items-center">
     <div class="row">
         <!-- Left side -->
         <div class="col-lg-6 p-lg-0 p-3">
-            {% if brick_set.image_url %}
-                <img src="{{ brick_set.image_url }}" alt="LEGO Set Image" class="img-fluid">
-            {% else %}
-                <img src="/static/assets/img/bricks_1.jpeg" class="grayscale-image img-fluid" alt="...">
-            {% endif %}
+            <div class="image-wrapper">
+                {% if brick_set.image_url %}
+                    <img src="{{ brick_set.image_url }}" alt="LEGO Set Image">
+                {% else %}
+                    <img src="/static/assets/img/bricks_1.jpeg" class="grayscale-image img-fluid" alt="...">
+                {% endif %}
+            </div>
         </div>
 
         <!-- Right side -->
