@@ -19,12 +19,7 @@
     <!-- Startbootstrap-Freelancer theme (Bootstrap)-->
     <link href="https://cdn.jsdelivr.net/npm/startbootstrap-freelancer@7.0.7/dist/css/styles.css" rel="stylesheet" integrity="sha384-3gFvFp7qupRH1KAy1x8UFnxLq6n3Y2ciAm2K6i7HDFzsLOv44lHDenq3dYgwYns8" crossorigin="anonymous">
     
-    <style>
-        .grayscale-image {
-            filter: grayscale(1);
-            opacity: 0.55;
-        }
-    </style>
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
 </head>
 <body>
     {% set current = request.endpoint %}

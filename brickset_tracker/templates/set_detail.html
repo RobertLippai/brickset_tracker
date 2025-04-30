@@ -10,14 +10,13 @@
         object-fit: contain;
     }
 </style>
-    
+
 <div class="container-fluid min-vh-100 d-flex align-items-center">
-    <div class="row">
-        <!-- Left side -->
-        <div class="col-lg-6 p-lg-0 p-3">
+    <div class="row w-100">
+        <div class="col-lg-6 p-lg-0 p-3 d-flex align-items-center justify-content-center">
             <div class="image-wrapper">
                 {% if brick_set.image_url %}
-                    <img src="{{ brick_set.image_url }}" alt="LEGO Set Image">
+                    <img src="{{ brick_set.image_url }}" alt="Brick Set Image">
                 {% else %}
                     <img src="/static/assets/img/bricks_1.jpeg" class="grayscale-image img-fluid" alt="...">
                 {% endif %}
@@ -36,29 +35,34 @@
                     ('Minifigures', brick_set.minifigures),
                     ('Year', brick_set.year),
                 ] %}
-            
+
                 {% for label, value in infos %}
                     {% if value %}
                         <strong>{{ label }}:</strong> {{ value }}<br>
                     {% endif %}
                 {% endfor %}
             </p>
+
             {% if brick_set.description %}
             <p class="text-start">{{ brick_set.description }}</p>
             {% endif %}
 
             {% if brick_set.tags %}
-            <div class="mb-4">
-                <strong class="me-2">Tags:</strong>
-                <div class="d-inline-flex gap-2">
-                    {% for tag in brick_set.tags %}
-                        <button class="btn btn-outline-primary btn-sm" disabled>{{ tag.name }}</button>
-                    {% endfor %}
+            <div class="mb-3 d-flex flex-column flex-sm-row align-items-sm-center">
+                <strong class="fs-5 mb-2 mb-sm-0 me-sm-2 flex-shrink-0">Tags</strong>
+                <div class="scroll-wrapper disable-scrollbars flex-grow-1">
+                    <div class="d-flex gap-2">
+                        {% for tag in brick_set.tags %}
+                            <div class="flex-shrink-0">
+                                <button class="btn btn-outline-primary btn-sm text-nowrap" disabled>{{ tag.name }}</button>
+                            </div>
+                         {% endfor %}
+                    </div>
                 </div>
             </div>
-        {% endif %}
+            {% endif %}
 
-            <div class="d-flex justify-content-center mt-4 gap-2 justify-content-md-start">
+            <div class="d-flex justify-content-center justify-content-lg-start mt-4 gap-2 flex-wrap">
             {% if brick_set.instruction_url %}
                 <a href="{{ brick_set.instruction_url }}" target="_blank" class="btn btn-success">View Instruction Manual</a>
             {% endif %}
@@ -78,8 +82,8 @@
             {% endif %}
             </div>
         </div>
-        <div class="mt-0 mt-lg-4 text-center">
-            <a href="{{ url_for(og_route) }}" class="btn btn-primary btn-lg">Go Back</a>
+        <div class="col-12 mt-3 mt-lg-4 text-center">
+            <a href="{{ url_for(og_route) }}" class="btn btn-primary btn-lg mb-3">Go Back</a>
         </div>
     </div>
 </div>
